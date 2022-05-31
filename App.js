@@ -1,12 +1,11 @@
-import React from 'react';
-import {Text, View} from 'react-native';
+import * as React from 'react';
+import {NavigationContainer} from '@react-navigation/native';
+import {RootNavigation} from './src/navigations';
 
-const App = () => {
+export default function App() {
   return (
-    <View>
-      <Text>screen and then come back to see your edits.</Text>
-    </View>
+    <NavigationContainer>
+      <RootNavigation />
+    </NavigationContainer>
   );
-};
-
-export default App;
+}
