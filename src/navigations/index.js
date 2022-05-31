@@ -6,7 +6,7 @@ import WelcomeScreen from '../routes/beforeAuthentication/WelcomeScreen';
 // import ForgetPasswordScreen from '../routes/beforeAuthentication/PasswordRecovery';
 // import CodeRecoveryScreen from '../routes/beforeAuthentication/PasswordRecovery/CodeRecoveryScreen';
 // import NewPasswordScreen from '../routes/beforeAuthentication/PasswordRecovery/NewPasswordScreen';
-// import RegistrationScreen from '../routes/beforeAuthentication/RegistrationScreen';
+import RegistrationScreen from '../routes/beforeAuthentication/RegistrationScreen';
 
 // import IsUserLoggedScreen from '../routes/IsUserLoggedScreen';
 // import TabNavigation from './bottomTabsNavigation';
@@ -20,6 +20,11 @@ export const RootNavigation = () => {
       <Stack.Screen
         name="WelcomeScreen"
         component={WelcomeScreen}
+        options={{headerShown: false}}
+      />
+      <Stack.Screen
+        name="RegistrationScreen"
+        component={RegistrationScreen}
         options={{headerShown: false}}
       />
       {/* <Stack.Screen
