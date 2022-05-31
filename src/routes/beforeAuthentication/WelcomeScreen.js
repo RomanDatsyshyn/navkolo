@@ -13,46 +13,46 @@ const h = Dimensions.get('window').height;
 
 export const WelcomeScreen = ({navigation}) => {
   return (
-    <>
-      <View style={styles.background}>
+    <View style={styles.background}>
+      <Image source={images.logo} style={styles.logo} />
+
+      <View>
         <Image source={images.welcomeBoy} style={styles.image} />
 
         <View style={styles.labels}>
           <TextBlock text={'Забудьте про пошук!'} size={2} deepBlue bolder />
           <TextBlock text={'Тепер є Ми.'} size={2} deepBlue bolder />
         </View>
-
-        <Image source={images.logo} style={styles.logo} />
-
-        <View style={styles.container}>
-          <View style={styles.labelForSignIn}>
-            <TextBlock text={'Вже є профіль'} size={5} lighter />
-          </View>
-
-          <Button
-            label={'Увійти'}
-            onPress={() => navigation.navigate('LoginScreen')}
-          />
-
-          <View style={styles.labelForSignUp}>
-            <TextBlock text={'Ще немає профілю...'} size={5} lighter />
-          </View>
-
-          <Button
-            label={'Зареєструватися'}
-            onPress={() => navigation.navigate('RegistrationScreen')}
-            pink
-          />
-
-          <BottomLinks
-            firstText={'Маєте запитання?'}
-            secondText={'Напишіть нам!'}
-            route={'RegistrationScreen'}
-            navigation={navigation}
-          />
-        </View>
       </View>
-    </>
+
+      <View style={styles.container}>
+        <View style={styles.labelForSignIn}>
+          <TextBlock text={'Вже є профіль'} size={5} lighter />
+        </View>
+
+        <Button
+          label={'Увійти'}
+          onPress={() => navigation.navigate('LoginScreen')}
+        />
+
+        <View style={styles.labelForSignUp}>
+          <TextBlock text={'Ще немає профілю...'} size={5} lighter />
+        </View>
+
+        <Button
+          label={'Зареєструватися'}
+          onPress={() => navigation.navigate('RegistrationScreen')}
+          pink
+        />
+
+        <BottomLinks
+          firstText={'Маєте запитання?'}
+          secondText={'Напишіть нам!'}
+          route={'RegistrationScreen'}
+          navigation={navigation}
+        />
+      </View>
+    </View>
   );
 };
 
@@ -66,7 +66,7 @@ const styles = StyleSheet.create({
   },
   labels: {
     position: 'absolute',
-    bottom: h * 0.53,
+    bottom: w * 0.15,
     left: w * 0.075,
   },
   image: {
@@ -80,18 +80,17 @@ const styles = StyleSheet.create({
   logo: {
     position: 'absolute',
     width: w * 0.6,
-    height: h * 0.11,
-    top: h * 0.07,
+    height: w * 0.11,
+    top: w * 0.15,
     alignSelf: 'center',
-    marginBottom: w * 0.03,
     resizeMode: 'contain',
   },
   container: {
-    height: h * 0.45,
     backgroundColor: colors.white,
     borderTopLeftRadius: w * 0.08,
     borderTopRightRadius: w * 0.08,
     alignItems: 'center',
+    paddingBottom: w * 0.02,
   },
   labelForSignIn: {
     alignSelf: 'flex-end',
