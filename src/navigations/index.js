@@ -2,7 +2,7 @@ import * as React from 'react';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 
 import WelcomeScreen from '../routes/beforeAuthentication/WelcomeScreen';
-// import LoginScreen from '../routes/beforeAuthentication/LoginScreen';
+import LoginScreen from '../routes/beforeAuthentication/LoginScreen';
 // import ForgetPasswordScreen from '../routes/beforeAuthentication/PasswordRecovery';
 // import CodeRecoveryScreen from '../routes/beforeAuthentication/PasswordRecovery/CodeRecoveryScreen';
 // import NewPasswordScreen from '../routes/beforeAuthentication/PasswordRecovery/NewPasswordScreen';
@@ -20,6 +20,11 @@ export const RootNavigation = () => {
       <Stack.Screen
         name="WelcomeScreen"
         component={WelcomeScreen}
+        options={{headerShown: false}}
+      />
+      <Stack.Screen
+        name="LoginScreen"
+        component={LoginScreen}
         options={{headerShown: false}}
       />
       <Stack.Screen
@@ -43,16 +48,6 @@ export const RootNavigation = () => {
         options={{headerShown: false}}
       />
       <Stack.Screen
-        name="WelcomeScreen"
-        component={WelcomeScreen}
-        options={{headerShown: false}}
-      />
-      <Stack.Screen
-        name="LoginScreen"
-        component={LoginScreen}
-        options={{headerShown: false}}
-      />
-      <Stack.Screen
         name="ForgetPasswordScreen"
         component={ForgetPasswordScreen}
         options={{headerShown: false}}
@@ -65,11 +60,6 @@ export const RootNavigation = () => {
       <Stack.Screen
         name="NewPasswordScreen"
         component={NewPasswordScreen}
-        options={{headerShown: false}}
-      />
-      <Stack.Screen
-        name="RegistrationScreen"
-        component={RegistrationScreen}
         options={{headerShown: false}}
       />
       <Stack.Screen
