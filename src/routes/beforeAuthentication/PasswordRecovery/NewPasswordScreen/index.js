@@ -37,11 +37,9 @@ export const NewPasswordScreen = ({
   const changePassword = async data => {
     await DataService.changePassword(data)
       .then(res => {
-        console.log(res.data);
         if (res.status === 200) {
           navigation.navigate('LoginScreen');
         } else {
-          console.log(res);
           AlertBox('Сталася помилка', res.data.errors);
         }
       })

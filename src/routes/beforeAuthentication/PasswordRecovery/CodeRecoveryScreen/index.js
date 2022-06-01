@@ -62,8 +62,6 @@ export const CodeRecoveryScreen = ({
 }) => {
   const {code, email} = route.params;
 
-  console.log(email);
-
   const [value, setValue] = useState('');
   const ref = useBlurOnFulfill({value, cellCount: CELL_COUNT});
   const [props, getCellOnLayoutHandler] = useClearByFocusCell({
