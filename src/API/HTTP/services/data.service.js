@@ -10,6 +10,14 @@ class DataService {
     }
   };
 
+  contactUs = async data => {
+    try {
+      return http.post('/contactUs', data);
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
   logout = async () => {
     try {
       let token = await getToken();

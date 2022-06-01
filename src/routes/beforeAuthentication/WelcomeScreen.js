@@ -48,7 +48,7 @@ export const WelcomeScreen = ({navigation}) => {
         <BottomLinks
           firstText={'Маєте запитання?'}
           secondText={'Напишіть нам!'}
-          route={'RegistrationScreen'}
+          route={'ContactUsScreen'}
           navigation={navigation}
         />
       </View>
