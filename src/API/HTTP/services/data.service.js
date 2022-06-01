@@ -18,6 +18,14 @@ class DataService {
     }
   };
 
+  sendCode = async data => {
+    try {
+      return http.post('/user/send-code', data);
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
   logout = async () => {
     try {
       let token = await getToken();
@@ -39,6 +47,14 @@ class DataService {
   register = async data => {
     try {
       return http.post('/user', data);
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
+  changePassword = async data => {
+    try {
+      return http.put('/user/change-password', data);
     } catch (e) {
       console.log(e);
     }

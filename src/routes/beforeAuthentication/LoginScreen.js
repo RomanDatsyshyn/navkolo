@@ -39,10 +39,10 @@ export const LoginScreen = ({navigation, navigation: {goBack}}) => {
         if (res.data.success) {
           const {access_token} = res.data.data;
           setTokenToStorage(access_token);
-
-          navigation.navigate('TabNavigation');
+          navigation.navigate('ContactUsScreen');
+          // navigation.navigate('TabNavigation');
         } else {
-          AlertBox('Сталася помилка', 'Спробуйте ще раз');
+          AlertBox('Сталася помилка', res.data.errors);
         }
       })
       .catch(e => {

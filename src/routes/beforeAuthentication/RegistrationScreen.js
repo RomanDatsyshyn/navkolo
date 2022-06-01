@@ -46,7 +46,7 @@ export const RegistrationScreen = ({navigation, navigation: {goBack}}) => {
       .then(res => {
         res.data.success
           ? navigation.navigate('LoginScreen')
-          : AlertBox('Сталася помилка', 'Спробуйте ще раз');
+          : AlertBox('Сталася помилка', res.data.errors);
       })
       .catch(e => {
         console.log(e);

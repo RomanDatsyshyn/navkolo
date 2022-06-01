@@ -3,20 +3,25 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 
 import WelcomeScreen from '../routes/beforeAuthentication/WelcomeScreen';
 import LoginScreen from '../routes/beforeAuthentication/LoginScreen';
-// import ForgetPasswordScreen from '../routes/beforeAuthentication/PasswordRecovery';
-// import CodeRecoveryScreen from '../routes/beforeAuthentication/PasswordRecovery/CodeRecoveryScreen';
-// import NewPasswordScreen from '../routes/beforeAuthentication/PasswordRecovery/NewPasswordScreen';
+import ForgetPasswordScreen from '../routes/beforeAuthentication/PasswordRecovery';
+import CodeRecoveryScreen from '../routes/beforeAuthentication/PasswordRecovery/CodeRecoveryScreen';
+import NewPasswordScreen from '../routes/beforeAuthentication/PasswordRecovery/NewPasswordScreen';
 import RegistrationScreen from '../routes/beforeAuthentication/RegistrationScreen';
 
-// import IsUserLoggedScreen from '../routes/IsUserLoggedScreen';
 // import TabNavigation from './bottomTabsNavigation';
 import ContactUsScreen from '../routes/contactUsScreen';
+import IsUserLoggedScreen from '../routes/IsUserLoggedScreen';
 
 const Stack = createNativeStackNavigator();
 
 export const RootNavigation = () => {
   return (
-    <Stack.Navigator initialRouteName="WelcomeScreen">
+    <Stack.Navigator initialRouteName="IsUserLoggedScreen">
+      <Stack.Screen
+        name="IsUserLoggedScreen"
+        component={IsUserLoggedScreen}
+        options={{headerShown: false}}
+      />
       <Stack.Screen
         name="WelcomeScreen"
         component={WelcomeScreen}
@@ -37,16 +42,6 @@ export const RootNavigation = () => {
         component={ContactUsScreen}
         options={{headerShown: false}}
       />
-      {/* <Stack.Screen
-        name="TabNavigation"
-        component={TabNavigation}
-        options={{headerShown: false}}
-      />
-      <Stack.Screen
-        name="IsUserLoggedScreen"
-        component={IsUserLoggedScreen}
-        options={{headerShown: false}}
-      />
       <Stack.Screen
         name="ForgetPasswordScreen"
         component={ForgetPasswordScreen}
@@ -62,11 +57,12 @@ export const RootNavigation = () => {
         component={NewPasswordScreen}
         options={{headerShown: false}}
       />
-      <Stack.Screen
-        name="ContactUsScreen"
-        component={ContactUsScreen}
+      {/* <Stack.Screen
+        name="TabNavigation"
+        component={TabNavigation}
         options={{headerShown: false}}
-      /> */}
+      />
+    */}
     </Stack.Navigator>
   );
 };
