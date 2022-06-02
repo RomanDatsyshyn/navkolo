@@ -11,6 +11,7 @@ import TextBlock from '../../../components/TextBlock';
 import {colors} from '../../../assets/colors';
 
 const w = Dimensions.get('window').width;
+const h = Dimensions.get('window').height;
 
 export const ProfileTab = ({navigation}) => {
   const [userName, setUserName] = useState('');
@@ -41,7 +42,7 @@ export const ProfileTab = ({navigation}) => {
 
   return (
     <View style={styles.background}>
-      <ScrollView>
+      <ScrollView showsVerticalScrollIndicator={false}>
         <View style={styles.container}>
           <Image
             source={{
@@ -56,17 +57,13 @@ export const ProfileTab = ({navigation}) => {
 
           <Button
             label={'Змінити пароль'}
-            onPress={() => {
-              navigation.navigate('NewPasswordScreen_Profile');
-            }}
-            navigation={navigation}
+            onPress={() => navigation.navigate('NewPasswordScreen_Profile')}
             pink
           />
           <View style={styles.spacing} />
           <Button
             label={'Історія запитів'}
-            route={'RegistrationScreen'}
-            navigation={navigation}
+            // route={'RegistrationScreen'}
             pink
           />
 
@@ -74,14 +71,14 @@ export const ProfileTab = ({navigation}) => {
 
           <Button label={'Вийти'} onPress={() => logout()} />
 
-          <View style={styles.minusSpacing} />
-
           <BottomLinks
             firstText={'Маєте запитання?'}
             secondText={'Напишіть нам!'}
             route={'ContactUsScreen'}
             navigation={navigation}
           />
+          <View style={styles.moreSpacing} />
+          <View style={styles.moreSpacing} />
         </View>
       </ScrollView>
     </View>
@@ -102,7 +99,7 @@ const styles = StyleSheet.create({
     height: w * 0.35,
     borderRadius: w * 0.5,
     marginBottom: w * 0.02,
-    marginTop: w * 0.05,
+    marginTop: h * 0.07,
   },
   userName: {
     marginBottom: w * 0.12,
