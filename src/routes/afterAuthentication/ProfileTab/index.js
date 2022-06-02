@@ -57,7 +57,7 @@ export const ProfileTab = ({navigation}) => {
           <Button
             label={'Змінити пароль'}
             onPress={() => {
-              navigation.navigate('NewPasswordScreen');
+              navigation.navigate('NewPasswordScreen_Profile');
             }}
             navigation={navigation}
             pink
