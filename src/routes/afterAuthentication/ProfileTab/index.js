@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {View, StyleSheet, Dimensions, Image} from 'react-native';
+import {View, StyleSheet, Dimensions, Image, ScrollView} from 'react-native';
 
 import {clearToken} from '../../../asyncStorage/token';
 import DataService from '../../../API/HTTP/services/data.service';
@@ -41,45 +41,49 @@ export const ProfileTab = ({navigation}) => {
 
   return (
     <View style={styles.background}>
-      <View style={styles.container}>
-        <Image
-          source={{
-            uri: `http://localhost:3001/${userPhoto}`,
-          }}
-          style={styles.userPhoto}
-        />
+      <ScrollView>
+        <View style={styles.container}>
+          <Image
+            source={{
+              uri: `http://localhost:3001/${userPhoto}`,
+            }}
+            style={styles.userPhoto}
+          />
 
-        <View style={styles.userName}>
-          <TextBlock text={userName || ''} size={1} lightBlue boldest />
+          <View style={styles.userName}>
+            <TextBlock text={userName || ''} size={1} lightBlue boldest />
+          </View>
+
+          <Button
+            label={'Змінити пароль'}
+            onPress={() => {
+              navigation.navigate('NewPasswordScreen');
+            }}
+            navigation={navigation}
+            pink
+          />
+          <View style={styles.spacing} />
+          <Button
+            label={'Історія запитів'}
+            route={'RegistrationScreen'}
+            navigation={navigation}
+            pink
+          />
+
+          <View style={styles.moreSpacing} />
+
+          <Button label={'Вийти'} onPress={() => logout()} />
+
+          <View style={styles.minusSpacing} />
+
+          <BottomLinks
+            firstText={'Маєте запитання?'}
+            secondText={'Напишіть нам!'}
+            route={'ContactUsScreen'}
+            navigation={navigation}
+          />
         </View>
-
-        <Button
-          label={'Змінити пароль'}
-          onPress={() => {
-            navigation.navigate('NewPasswordScreen');
-          }}
-          navigation={navigation}
-          pink
-        />
-        <View style={styles.spacing} />
-        <Button
-          label={'Історія запитів'}
-          route={'RegistrationScreen'}
-          navigation={navigation}
-          pink
-        />
-
-        <View style={styles.moreSpacing} />
-
-        <Button label={'Вийти'} onPress={() => logout()} />
-
-        <BottomLinks
-          firstText={'Маєте запитання?'}
-          secondText={'Напишіть нам!'}
-          route={'ContactUsScreen'}
-          navigation={navigation}
-        />
-      </View>
+      </ScrollView>
     </View>
   );
 };
@@ -98,6 +102,7 @@ const styles = StyleSheet.create({
     height: w * 0.35,
     borderRadius: w * 0.5,
     marginBottom: w * 0.02,
+    marginTop: w * 0.05,
   },
   userName: {
     marginBottom: w * 0.12,
@@ -111,5 +116,8 @@ const styles = StyleSheet.create({
   },
   moreSpacing: {
     marginTop: w * 0.1,
+  },
+  minusSpacing: {
+    marginTop: -w * 0.05,
   },
 });
