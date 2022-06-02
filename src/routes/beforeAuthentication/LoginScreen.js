@@ -39,8 +39,7 @@ export const LoginScreen = ({navigation, navigation: {goBack}}) => {
         if (res.data.success) {
           const {access_token} = res.data.data;
           setTokenToStorage(access_token);
-          navigation.navigate('ContactUsScreen');
-          // navigation.navigate('TabNavigation');
+          navigation.navigate('TabNavigation');
         } else {
           AlertBox('Сталася помилка', res.data.errors);
         }

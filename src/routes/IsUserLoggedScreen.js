@@ -10,12 +10,8 @@ export const IsUserLoggedScreen = ({navigation}) => {
       const token = await getToken();
 
       token
-        ? navigation.navigate('ContactUsScreen')
+        ? navigation.navigate('TabNavigation')
         : navigation.navigate('WelcomeScreen');
-
-      // token
-      //   ? navigation.navigate('TabNavigation')
-      //   : navigation.navigate('WelcomeScreen');
     };
 
     fetchData();

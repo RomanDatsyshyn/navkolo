@@ -8,7 +8,7 @@ import CodeRecoveryScreen from '../routes/beforeAuthentication/PasswordRecovery/
 import NewPasswordScreen from '../routes/beforeAuthentication/PasswordRecovery/NewPasswordScreen';
 import RegistrationScreen from '../routes/beforeAuthentication/RegistrationScreen';
 
-// import TabNavigation from './bottomTabsNavigation';
+import TabNavigation from './bottomTabsNavigation';
 import ContactUsScreen from '../routes/contactUsScreen';
 import IsUserLoggedScreen from '../routes/IsUserLoggedScreen';
 
@@ -16,7 +16,7 @@ const Stack = createNativeStackNavigator();
 
 export const RootNavigation = () => {
   return (
-    <Stack.Navigator initialRouteName="IsUserLoggedScreen">
+    <Stack.Navigator initialRouteName="TabNavigation">
       <Stack.Screen
         name="IsUserLoggedScreen"
         component={IsUserLoggedScreen}
@@ -57,12 +57,11 @@ export const RootNavigation = () => {
         component={NewPasswordScreen}
         options={{headerShown: false}}
       />
-      {/* <Stack.Screen
+      <Stack.Screen
         name="TabNavigation"
         component={TabNavigation}
         options={{headerShown: false}}
       />
-    */}
     </Stack.Navigator>
   );
 };
