@@ -16,7 +16,7 @@ const Stack = createNativeStackNavigator();
 
 export const RootNavigation = () => {
   return (
-    <Stack.Navigator initialRouteName="TabNavigation">
+    <Stack.Navigator initialRouteName="IsUserLoggedScreen">
       <Stack.Screen
         name="IsUserLoggedScreen"
         component={IsUserLoggedScreen}

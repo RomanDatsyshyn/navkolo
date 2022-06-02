@@ -19,16 +19,18 @@ import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
 const w = Dimensions.get('window').width;
 const h = Dimensions.get('window').height;
 
-export const ListOfServicesScreen = ({route, navigation}) => {
+export const ListOfServicesScreen = ({
+  route,
+  navigation,
+  navigation: {goBack},
+}) => {
   const [searchQuery, setSearchQuery] = useState('');
   const {services} = route.params;
 
   return (
     <View style={styles.background}>
       <ScrollView showsVerticalScrollIndicator={false}>
-        <TouchableOpacity
-          onPress={() => navigation.navigate('CategoriesTabScreen')}
-          style={styles.backButton}>
+        <TouchableOpacity onPress={() => goBack()} style={styles.backButton}>
           <FontAwesomeIcon
             icon={Icons.faChevronLeft}
             size={w * 0.07}
