@@ -61,11 +61,7 @@ export const ProfileTab = ({navigation}) => {
             pink
           />
           <View style={styles.spacing} />
-          <Button
-            label={'Історія запитів'}
-            // route={'RegistrationScreen'}
-            pink
-          />
+          <Button label={'Історія пошуку'} pink />
 
           <View style={styles.moreSpacing} />
 

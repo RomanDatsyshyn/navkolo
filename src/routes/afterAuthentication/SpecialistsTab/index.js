@@ -21,7 +21,7 @@ import DataService from '../../../API/HTTP/services/data.service';
 const w = Dimensions.get('window').width;
 const h = Dimensions.get('window').height;
 
-export const SpecialistsTab = ({navigation, route}) => {
+export const SpecialistsTab = ({navigation}) => {
   const [userId, setUserId] = useState('');
   const [feed, setFeed] = useState([]);
   const [connected, setConnected] = useState(false);
@@ -76,7 +76,6 @@ export const SpecialistsTab = ({navigation, route}) => {
       socket.emit('join', {room: `userFeed-${id}`});
       socket.on('message', data => {
         setFeed(data);
-        console.log(2);
       });
     },
     [socket],

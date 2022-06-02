@@ -76,7 +76,6 @@ export const FeedTab = ({navigation, route}) => {
       socket.emit('join', {room: `userFeed-${id}`});
       socket.on('message', data => {
         setFeed(data);
-        console.log(2);
       });
     },
     [socket],

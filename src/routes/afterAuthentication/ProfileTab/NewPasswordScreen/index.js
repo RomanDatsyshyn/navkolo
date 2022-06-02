@@ -92,14 +92,6 @@ export const NewPasswordScreen = ({navigation, navigation: {goBack}}) => {
     <>
       <View style={styles.background}>
         <ScrollView showsVerticalScrollIndicator={false}>
-          <TouchableOpacity onPress={() => goBack()} style={styles.backButton}>
-            <FontAwesomeIcon
-              icon={Icons.faChevronLeft}
-              size={w * 0.08}
-              style={[{color: colors.deepBlue}, styles.backIcon]}
-            />
-          </TouchableOpacity>
-
           <View>
             <View style={styles.labels}>
               <TextBlock text={'Введіть ваш'} size={1} lightBlue boldest />
@@ -148,6 +140,13 @@ export const NewPasswordScreen = ({navigation, navigation: {goBack}}) => {
               />
             </View>
           </View>
+          <TouchableOpacity onPress={() => goBack()} style={styles.backButton}>
+            <FontAwesomeIcon
+              icon={Icons.faChevronLeft}
+              size={w * 0.08}
+              style={[{color: colors.deepBlue}, styles.backIcon]}
+            />
+          </TouchableOpacity>
         </ScrollView>
       </View>
     </>
@@ -164,6 +163,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   labels: {
+    marginTop: h * 0.07,
     justifyContent: 'center',
     alignItems: 'center',
   },
@@ -176,8 +176,7 @@ const styles = StyleSheet.create({
   },
   backButton: {
     position: 'absolute',
-    top: h * 0.07,
-    left: w * 0.07,
+    top: w * 0.05,
   },
   backIcon: {
     width: w * 0.09,
