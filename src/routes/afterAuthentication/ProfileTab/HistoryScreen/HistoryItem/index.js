@@ -18,8 +18,8 @@ import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
 
 const w = Dimensions.get('window').width;
 
-export const HistoryItem = ({item, deleteUserHistoryItem}) => {
-  const {id, name, photo, rating} = item;
+export const HistoryItem = ({navigation, item, deleteUserHistoryItem}) => {
+  const {id, serviceSellerId, name, photo, rating} = item;
   return (
     <>
       <View style={styles.dateBlock}>
@@ -58,7 +58,7 @@ export const HistoryItem = ({item, deleteUserHistoryItem}) => {
 
                 <View style={styles.itemDistance}>
                   <TextBlock
-                    text={`${rating ? rating : 0} із 10`}
+                    text={`${rating.sum / rating.amount} із 10`}
                     size={3}
                     deepBlue
                   />
@@ -71,8 +71,14 @@ export const HistoryItem = ({item, deleteUserHistoryItem}) => {
                   size={w * 0.055}
                   style={[{color: colors.black}, styles.itemLocationIcon]}
                 />
-
-                <TouchableOpacity style={styles.itemMap} activeOpacity={0.7}>
+                <TouchableOpacity
+                  style={styles.itemMap}
+                  activeOpacity={0.7}
+                  onPress={() =>
+                    navigation.navigate('FeedBacksScreen', {
+                      id: serviceSellerId,
+                    })
+                  }>
                   <TextBlock text={'Відгуки'} size={3} grey />
                 </TouchableOpacity>
               </View>

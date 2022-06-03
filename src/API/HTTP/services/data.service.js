@@ -124,6 +124,14 @@ class DataService {
     }
   };
 
+  getServiceSellerFeedBacks = async id => {
+    try {
+      return http.get(`/user/getServiceSellerFeedBacks/${id}`);
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
   subscribe = async () => {
     try {
       let token = await getToken();

@@ -51,6 +51,7 @@ export const HistoryScreen = ({navigation, navigation: {goBack}}) => {
             <HistoryItem
               item={item}
               deleteUserHistoryItem={deleteUserHistoryItem}
+              navigation={navigation}
               key={index}
             />
           ))}

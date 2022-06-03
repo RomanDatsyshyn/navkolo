@@ -100,7 +100,7 @@ export const RegistrationScreen = ({navigation, navigation: {goBack}}) => {
 
   return (
     <SafeAreaView style={styles.backgroundSafeArea}>
-      <InputScrollView>
+      <InputScrollView showsVerticalScrollIndicator={false}>
         <ScrollView showsVerticalScrollIndicator={false}>
           <View style={styles.background}>
             <View>
