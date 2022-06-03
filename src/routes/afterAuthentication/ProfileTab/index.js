@@ -61,7 +61,11 @@ export const ProfileTab = ({navigation}) => {
             pink
           />
           <View style={styles.spacing} />
-          <Button label={'Історія пошуку'} pink />
+          <Button
+            label={'Історія пошуку'}
+            onPress={() => navigation.navigate('HistoryScreen')}
+            pink
+          />
 
           <View style={styles.moreSpacing} />
 

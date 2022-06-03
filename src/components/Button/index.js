@@ -14,6 +14,7 @@ export const Button = ({
   leftArrow,
   rightArrow,
   onPress,
+  width = w * 0.8,
 }) => {
   const getIdditionalStyles = () => {
     return pink
@@ -24,7 +25,7 @@ export const Button = ({
   return (
     <TouchableOpacity
       activeOpacity={0.7}
-      style={[styles.button, getIdditionalStyles()]}
+      style={[styles.button, {width}, getIdditionalStyles()]}
       onPress={onPress}>
       {leftArrow && (
         <FontAwesomeIcon
@@ -54,7 +55,6 @@ export default Button;
 const styles = StyleSheet.create({
   button: {
     flexDirection: 'row',
-    width: w * 0.8,
     height: w * 0.16,
     alignItems: 'center',
     justifyContent: 'center',

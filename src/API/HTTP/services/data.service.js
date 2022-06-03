@@ -88,6 +88,34 @@ class DataService {
     }
   };
 
+  getUserHistory = async () => {
+    try {
+      let token = await getToken();
+
+      return http.get('/user/history', {
+        headers: {
+          Authorization: token,
+        },
+      });
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
+  deleteUserHistoryItem = async id => {
+    try {
+      let token = await getToken();
+
+      return http.post('/user/deleteHistoryItem', id, {
+        headers: {
+          Authorization: token,
+        },
+      });
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
   getCategories = async () => {
     try {
       return http.get('/categories');
