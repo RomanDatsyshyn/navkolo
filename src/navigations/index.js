@@ -15,6 +15,9 @@ import IsUserLoggedScreen from '../routes/IsUserLoggedScreen';
 import FeedBacksScreen from '../routes/afterAuthentication/ProfileTab/FeedBacksScreen';
 import AddFeedBackScreen from '../routes/afterAuthentication/ProfileTab/AddFeedBackScreen';
 
+import NewPasswordScreen_profile from '../routes/afterAuthentication/ProfileTab/NewPasswordScreen';
+import HistoryScreen from '../routes/afterAuthentication/ProfileTab/HistoryScreen';
+
 const Stack = createNativeStackNavigator();
 
 export const RootNavigation = () => {
@@ -73,6 +76,16 @@ export const RootNavigation = () => {
       <Stack.Screen
         name="AddFeedBackScreen"
         component={AddFeedBackScreen}
+        options={{headerShown: false}}
+      />
+      <Stack.Screen
+        name="NewPasswordScreen_Profile"
+        component={NewPasswordScreen_profile}
+        options={{headerShown: false}}
+      />
+      <Stack.Screen
+        name="HistoryScreen"
+        component={HistoryScreen}
         options={{headerShown: false}}
       />
     </Stack.Navigator>

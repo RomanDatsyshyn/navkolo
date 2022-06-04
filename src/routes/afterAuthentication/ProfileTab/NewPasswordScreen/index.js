@@ -166,7 +166,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   labels: {
-    marginTop: h * 0.07,
+    marginTop: h * 0.1,
     justifyContent: 'center',
     alignItems: 'center',
   },
@@ -179,7 +179,7 @@ const styles = StyleSheet.create({
   },
   backButton: {
     position: 'absolute',
-    top: w * 0.05,
+    top: w * 0.12,
   },
   backIcon: {
     width: w * 0.09,

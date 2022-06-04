@@ -8,7 +8,6 @@ import {
   ScrollView,
   SafeAreaView,
 } from 'react-native';
-import InputScrollView from 'react-native-input-scroll-view';
 
 import {colors} from '../../../../assets/colors';
 
@@ -48,48 +47,44 @@ export const FeedBacksScreen = ({route, navigation: {goBack}}) => {
 
   return (
     <SafeAreaView style={styles.background}>
-      <InputScrollView showsVerticalScrollIndicator={false}>
-        <ScrollView showsVerticalScrollIndicator={false}>
-          <View style={styles.container}>
-            <View style={styles.labels}>
-              <TextBlock text={'Відгуки'} size={1} lightBlue boldest />
+      <ScrollView showsVerticalScrollIndicator={false}>
+        <View style={styles.container}>
+          <View style={styles.labels}>
+            <TextBlock text={'Відгуки'} size={1} lightBlue boldest />
 
-              <View style={styles.subTitle}>
-                <TextBlock
-                  text={'Нижче наведені всі відгуки'}
-                  size={5}
-                  grey
-                  bold
-                />
-              </View>
-            </View>
-
-            {feedBacks?.map((item, index) => (
-              <View key={index}>
-                <View style={styles.dateBlock}>
-                  <TextBlock text={item.date} size={4} grey />
-                </View>
-                <TextBlock text={item.text} size={4} bold />
-              </View>
-            ))}
-
-            {feedBacks.length === 0 && (
-              <Text style={styles.emptyList}>Немає жодного відгуку</Text>
-            )}
-
-            <View style={styles.spacing} />
-            <TouchableOpacity
-              onPress={() => goBack()}
-              style={styles.backButton}>
-              <FontAwesomeIcon
-                icon={Icons.faChevronLeft}
-                size={w * 0.08}
-                style={[{color: colors.deepBlue}, styles.backIcon]}
+            <View style={styles.subTitle}>
+              <TextBlock
+                text={'Нижче наведені всі відгуки'}
+                size={5}
+                grey
+                bold
               />
-            </TouchableOpacity>
+            </View>
           </View>
-        </ScrollView>
-      </InputScrollView>
+
+          {feedBacks?.map((item, index) => (
+            <View key={index}>
+              <View style={styles.dateBlock}>
+                <TextBlock text={item.date} size={4} grey />
+              </View>
+              <TextBlock text={item.text} size={4} bold />
+            </View>
+          ))}
+
+          {feedBacks.length === 0 && (
+            <Text style={styles.emptyList}>Немає жодного відгуку</Text>
+          )}
+
+          <View style={styles.spacing} />
+          <TouchableOpacity onPress={() => goBack()} style={styles.backButton}>
+            <FontAwesomeIcon
+              icon={Icons.faChevronLeft}
+              size={w * 0.08}
+              style={[{color: colors.deepBlue}, styles.backIcon]}
+            />
+          </TouchableOpacity>
+        </View>
+      </ScrollView>
     </SafeAreaView>
   );
 };
