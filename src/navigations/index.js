@@ -13,6 +13,7 @@ import ContactUsScreen from '../routes/contactUsScreen';
 import IsUserLoggedScreen from '../routes/IsUserLoggedScreen';
 
 import FeedBacksScreen from '../routes/afterAuthentication/ProfileTab/FeedBacksScreen';
+import AddFeedBackScreen from '../routes/afterAuthentication/ProfileTab/AddFeedBackScreen';
 
 const Stack = createNativeStackNavigator();
 
@@ -67,6 +68,11 @@ export const RootNavigation = () => {
       <Stack.Screen
         name="FeedBacksScreen"
         component={FeedBacksScreen}
+        options={{headerShown: false}}
+      />
+      <Stack.Screen
+        name="AddFeedBackScreen"
+        component={AddFeedBackScreen}
         options={{headerShown: false}}
       />
     </Stack.Navigator>

@@ -124,6 +124,20 @@ class DataService {
     }
   };
 
+  addFeedBack = async data => {
+    try {
+      let token = await getToken();
+
+      return http.post('/user/addFeedBack', data, {
+        headers: {
+          Authorization: token,
+        },
+      });
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
   getServiceSellerFeedBacks = async id => {
     try {
       return http.get(`/user/getServiceSellerFeedBacks/${id}`);

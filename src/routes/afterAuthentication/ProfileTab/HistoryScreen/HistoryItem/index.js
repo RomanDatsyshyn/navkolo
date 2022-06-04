@@ -20,6 +20,12 @@ const w = Dimensions.get('window').width;
 
 export const HistoryItem = ({navigation, item, deleteUserHistoryItem}) => {
   const {id, serviceSellerId, name, photo, rating} = item;
+
+  const getRating = () => {
+    let x = rating.sum / rating.amount;
+    return +x.toFixed(1);
+  };
+
   return (
     <>
       <View style={styles.dateBlock}>
@@ -57,11 +63,7 @@ export const HistoryItem = ({navigation, item, deleteUserHistoryItem}) => {
                 />
 
                 <View style={styles.itemDistance}>
-                  <TextBlock
-                    text={`${rating.sum / rating.amount} із 10`}
-                    size={3}
-                    deepBlue
-                  />
+                  <TextBlock text={`${getRating()} із 10`} size={3} deepBlue />
                 </View>
               </View>
 
@@ -130,7 +132,11 @@ export const HistoryItem = ({navigation, item, deleteUserHistoryItem}) => {
       <Button
         width={'100%'}
         label={'Залишити відгук'}
-        // onPress={() => navigation.navigate('RegistrationScreen')}
+        onPress={() =>
+          navigation.navigate('AddFeedBackScreen', {
+            id: serviceSellerId,
+          })
+        }
         pink
       />
     </>

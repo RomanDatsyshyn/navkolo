@@ -137,6 +137,7 @@ export const ContactUsScreen = ({navigation: {goBack, navigate}}) => {
                   value={text}
                   onChange={e => setText(e)}
                   multiline={true}
+                  height={h * 0.25}
                 />
 
                 <View style={styles.someSpace} />
@@ -147,6 +148,7 @@ export const ContactUsScreen = ({navigation: {goBack, navigate}}) => {
                   pink
                   bold
                 />
+                <View style={styles.someSpace} />
               </View>
             </View>
           </View>

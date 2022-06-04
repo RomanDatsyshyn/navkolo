@@ -21,6 +21,7 @@ export const Input = ({
   onFocus,
   onBlur,
   width = w * 0.8,
+  height,
   multiline = false,
 }) => {
   const getStylesOfPosition = () => {
@@ -46,7 +47,7 @@ export const Input = ({
 
       <View style={getStylesOfPosition()}>
         <TextInput
-          style={[styles.input, {width}, getStylesOfPaddingLeft()]}
+          style={[styles.input, {width}, {height}, getStylesOfPaddingLeft()]}
           returnKeyType={'done'}
           keyboardType={keyboardType}
           placeholder={placeholder}

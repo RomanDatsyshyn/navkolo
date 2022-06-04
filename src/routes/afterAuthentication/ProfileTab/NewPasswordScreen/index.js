@@ -140,6 +140,9 @@ export const NewPasswordScreen = ({navigation, navigation: {goBack}}) => {
               />
             </View>
           </View>
+          <View style={styles.someSpace} />
+          <View style={styles.someSpace} />
+          <View style={styles.someSpace} />
           <TouchableOpacity onPress={() => goBack()} style={styles.backButton}>
             <FontAwesomeIcon
               icon={Icons.faChevronLeft}
