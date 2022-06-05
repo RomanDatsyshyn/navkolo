@@ -18,6 +18,7 @@ export const ServiceItem = ({name, id, services, navigation}) => {
         }
         pink
         bold
+        width={w * 0.9}
       />
     </View>
   );

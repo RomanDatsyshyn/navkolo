@@ -49,6 +49,7 @@ export const ListOfServicesScreen = ({
           isShowIcon={true}
           value={searchQuery}
           onChangeText={e => setSearchQuery(e)}
+          width={w * 0.9}
         />
 
         <View style={styles.categoriesContainer}>
@@ -79,11 +80,12 @@ const styles = StyleSheet.create({
   },
   title: {
     marginTop: w * 0.07,
-    marginLeft: w * 0.1,
+    alignSelf: 'center',
   },
   subTitle: {
     marginTop: w * 0.01,
     marginBottom: w * 0.05,
+    alignSelf: 'center',
   },
   positionRelative: {
     position: 'relative',
@@ -96,7 +98,7 @@ const styles = StyleSheet.create({
     marginLeft: w * 0.03,
   },
   categoriesContainer: {
-    width: w * 0.8,
+    width: w * 0.9,
     flexDirection: 'row',
     flexWrap: 'wrap',
     justifyContent: 'space-between',
@@ -104,7 +106,7 @@ const styles = StyleSheet.create({
   },
   backButton: {
     position: 'absolute',
-    top: h * 0.03,
+    top: h * 0.05,
   },
   backIcon: {
     width: w * 0.09,

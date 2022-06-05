@@ -85,7 +85,11 @@ export const IWantToScreen = ({route, navigation}) => {
 
   return (
     <View style={styles.background}>
-      <Button label={getFormatedDate()} onPress={() => setOpen(true)} />
+      <Button
+        label={getFormatedDate()}
+        onPress={() => setOpen(true)}
+        width={w * 0.9}
+      />
       <DatePicker
         modal
         open={open}
@@ -116,6 +120,7 @@ export const IWantToScreen = ({route, navigation}) => {
             isStart: true,
           });
         }}
+        width={w * 0.9}
         pink
         bold
       />
@@ -127,6 +132,7 @@ export const IWantToScreen = ({route, navigation}) => {
             services,
           })
         }
+        width={w * 0.9}
         bold
         leftArrow
       />
