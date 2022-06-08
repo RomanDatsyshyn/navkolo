@@ -138,6 +138,16 @@ class DataService {
     }
   };
 
+  getSpecialistsAroundMe = async (latitude, longitude) => {
+    try {
+      return http.get('/user/getSpecialistsAroundMe', {
+        params: {latitude, longitude},
+      });
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
   getServiceSellerFeedBacks = async id => {
     try {
       return http.get(`/user/getServiceSellerFeedBacks/${id}`);
