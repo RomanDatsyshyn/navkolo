@@ -80,8 +80,8 @@ const styles = StyleSheet.create({
   logo: {
     position: 'absolute',
     width: w * 0.6,
-    height: w * 0.11,
-    top: w * 0.15,
+    height: w * 0.27,
+    top: h > 700 ? h * 0.07 : h * 0.02,
     alignSelf: 'center',
     resizeMode: 'contain',
   },
