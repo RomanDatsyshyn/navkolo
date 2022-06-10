@@ -1,5 +1,13 @@
 import React, {useEffect, useState} from 'react';
-import {View, StyleSheet, Dimensions, Image, ScrollView} from 'react-native';
+import {
+  View,
+  Alert,
+  StyleSheet,
+  Dimensions,
+  Image,
+  Linking,
+  ScrollView,
+} from 'react-native';
 
 import {clearToken} from '../../../asyncStorage/token';
 import DataService from '../../../API/HTTP/services/data.service';
@@ -40,6 +48,17 @@ export const ProfileTab = ({navigation}) => {
     navigation.navigate('WelcomeScreen');
   };
 
+  const url1 = 'https://t.me/+380968520205';
+
+  const openUrl = async url => {
+    const isSupported = await Linking.canOpenURL(url);
+    if (isSupported) {
+      await Linking.openURL(url);
+    } else {
+      Alert.alert(`Don't know how to open this url: ${url}`);
+    }
+  };
+
   return (
     <View style={styles.background}>
       <ScrollView showsVerticalScrollIndicator={false}>
@@ -66,6 +85,10 @@ export const ProfileTab = ({navigation}) => {
             onPress={() => navigation.navigate('HistoryScreen')}
             pink
           />
+
+          <View style={styles.spacing} />
+
+          <Button label={'Open telegram'} onPress={() => openUrl(url1)} pink />
 
           <View style={styles.moreSpacing} />
 
