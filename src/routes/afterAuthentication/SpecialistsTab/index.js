@@ -150,8 +150,7 @@ export const SpecialistsTab = ({navigation}) => {
   }, [navigation]);
 
   // ----------------------------------------------- //
-  const [, setLocation] = useState(null);
-  // const [location, setLocation] = useState(null);
+  const [location, setLocation] = useState(null);
 
   const hasPermissionIOS = async () => {
     const openSetting = () => {
@@ -262,21 +261,32 @@ export const SpecialistsTab = ({navigation}) => {
 
   return (
     <View style={styles.background}>
-      {feed?.length > 0 && (
-        <ScrollView
-          style={styles.container}
-          showsVerticalScrollIndicator={false}>
-          {feed?.map((item, index) => (
-            <SpecialistItem item={item} key={index} />
-          ))}
-          <View style={styles.spacing} />
-        </ScrollView>
-      )}
-      {feed.length === 0 && (
+      {location !== null ? (
         <>
-          <Image source={images.feedTabImage} style={styles.image} />
-          <TextBlock text={'Схоже, що нікого немає'} size={2} deepBlue />
-          <TextBlock text={'поруч'} size={2} deepBlue />
+          {feed?.length > 0 && (
+            <ScrollView
+              style={styles.container}
+              showsVerticalScrollIndicator={false}>
+              {feed?.map((item, index) => (
+                <SpecialistItem item={item} key={index} />
+              ))}
+              <View style={styles.spacing} />
+            </ScrollView>
+          )}
+          {feed.length === 0 && (
+            <>
+              <Image source={images.feedTabImage} style={styles.image} />
+              <TextBlock text={'Схоже, що нікого немає'} size={2} deepBlue />
+              <TextBlock text={'поруч'} size={2} deepBlue />
+            </>
+          )}
+        </>
+      ) : (
+        <>
+          <TextBlock text={'Схоже, що ви'} size={2} deepBlue />
+          <TextBlock text={'вимкнули геолокацію.'} size={2} deepBlue />
+          <Image source={images.offline} style={styles.geolocation} />
+          <TextBlock text={'Увімкніть її  ;)'} size={2} deepBlue />
         </>
       )}
     </View>
@@ -307,6 +317,15 @@ const styles = StyleSheet.create({
     resizeMode: 'contain',
     zIndex: 1,
     marginTop: -h * 0.1,
+    marginBottom: h * 0.05,
+  },
+  geolocation: {
+    width: w * 0.85,
+    height: h * 0.4,
+    alignSelf: 'center',
+    resizeMode: 'contain',
+    zIndex: 1,
+    marginTop: h * 0.04,
     marginBottom: h * 0.05,
   },
 });
