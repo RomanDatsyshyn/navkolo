@@ -155,20 +155,6 @@ class DataService {
       console.log(e);
     }
   };
-
-  subscribe = async () => {
-    try {
-      let token = await getToken();
-
-      return http.get('/feed/user/getOffers', {
-        headers: {
-          Authorization: token,
-        },
-      });
-    } catch (e) {
-      console.log(e);
-    }
-  };
 }
 
 export default new DataService();

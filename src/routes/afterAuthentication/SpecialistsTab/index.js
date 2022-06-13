@@ -5,7 +5,7 @@ import {
   StyleSheet,
   Dimensions,
   ScrollView,
-  Text,
+  Image,
   Platform,
   TouchableOpacity,
   Alert,
@@ -16,12 +16,14 @@ import {
 const {io} = require('socket.io-client');
 
 import SpecialistItem from './SpecialistItem';
+import TextBlock from '../../../components/TextBlock';
 
 import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
 import * as Icons from '@fortawesome/free-solid-svg-icons';
 import Geolocation from 'react-native-geolocation-service';
 
 import {colors} from '../../../assets/colors';
+import {images} from '../../../assets/images';
 import DataService from '../../../API/HTTP/services/data.service';
 
 const w = Dimensions.get('window').width;
@@ -270,7 +272,13 @@ export const SpecialistsTab = ({navigation}) => {
           <View style={styles.spacing} />
         </ScrollView>
       )}
-      {feed.length === 0 && <Text>No one propositions</Text>}
+      {feed.length === 0 && (
+        <>
+          <Image source={images.feedTabImage} style={styles.image} />
+          <TextBlock text={'Схоже, що нікого немає'} size={2} deepBlue />
+          <TextBlock text={'поруч'} size={2} deepBlue />
+        </>
+      )}
     </View>
   );
 };
@@ -291,5 +299,14 @@ const styles = StyleSheet.create({
   },
   spacing: {
     height: w * 0.05,
+  },
+  image: {
+    width: w * 0.85,
+    height: h * 0.28,
+    alignSelf: 'center',
+    resizeMode: 'contain',
+    zIndex: 1,
+    marginTop: -h * 0.1,
+    marginBottom: h * 0.05,
   },
 });

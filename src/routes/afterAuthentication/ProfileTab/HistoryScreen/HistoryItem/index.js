@@ -84,18 +84,6 @@ export const HistoryItem = ({navigation, item, deleteUserHistoryItem}) => {
                   <TextBlock text={'Відгуки'} size={3} grey />
                 </TouchableOpacity>
               </View>
-
-              <View style={[styles.row, styles.alignCenter]}>
-                <FontAwesomeIcon
-                  icon={Icons.faLocationDot}
-                  size={w * 0.055}
-                  style={[{color: colors.black}, styles.itemLocationIcon]}
-                />
-
-                <TouchableOpacity style={styles.itemMap} activeOpacity={0.7}>
-                  <TextBlock text={'Локація'} size={3} grey />
-                </TouchableOpacity>
-              </View>
             </View>
           </View>
         </View>
@@ -161,8 +149,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   itemImage: {
-    width: w * 0.35,
-    height: w * 0.35,
+    width: w * 0.28,
+    height: w * 0.28,
     borderRadius: w * 0.02,
   },
   instagram: {
