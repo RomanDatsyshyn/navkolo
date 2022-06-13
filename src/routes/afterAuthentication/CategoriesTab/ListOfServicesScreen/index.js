@@ -44,17 +44,19 @@ export const ListOfServicesScreen = ({
           <TextBlock text={'або скористайтеся пошуком'} size={5} grey bolde />
         </View>
 
-        <Input
-          placeholder="Введіть назву послуги"
-          isShowIcon={true}
-          value={searchQuery}
-          onChangeText={e => setSearchQuery(e)}
-          width={w * 0.9}
-        />
+        <View style={styles.center}>
+          <Input
+            width={w * 0.9}
+            placeholder="Введіть назву послуги"
+            isShowIcon={true}
+            value={searchQuery}
+            onChange={e => setSearchQuery(e)}
+          />
+        </View>
 
         <View style={styles.categoriesContainer}>
-          {services.map(({name, id}, index) => (
-            <>
+          {(searchQuery === '' || searchQuery.length < 3) &&
+            services.map(({name, id}, index) => (
               <ServiceItem
                 id={id}
                 name={name}
@@ -62,8 +64,22 @@ export const ListOfServicesScreen = ({
                 services={services}
                 key={index}
               />
-            </>
-          ))}
+            ))}
+
+          {searchQuery.length > 2 &&
+            services.map(({name, id}, index) => {
+              if (name.toLowerCase().includes(searchQuery.toLowerCase())) {
+                return (
+                  <ServiceItem
+                    id={id}
+                    name={name}
+                    navigation={navigation}
+                    services={services}
+                    key={index}
+                  />
+                );
+              }
+            })}
         </View>
       </ScrollView>
     </View>

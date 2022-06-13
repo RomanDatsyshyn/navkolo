@@ -54,15 +54,31 @@ export const CategoriesTab = ({navigation}) => {
         <View style={styles.hr} />
 
         <View style={styles.categoriesContainer}>
-          {catagoriesList.map(({name, icon, services}, index) => (
-            <CategoryItem
-              name={name}
-              icon={icon}
-              services={services}
-              navigation={navigation}
-              key={index}
-            />
-          ))}
+          {(searchQuery === '' || searchQuery.length < 3) &&
+            catagoriesList.map(({name, icon, services}, index) => (
+              <CategoryItem
+                name={name}
+                icon={icon}
+                services={services}
+                navigation={navigation}
+                key={index}
+              />
+            ))}
+
+          {searchQuery.length > 2 &&
+            catagoriesList.map(({name, icon, services}, index) => {
+              if (name.toLowerCase().includes(searchQuery.toLowerCase())) {
+                return (
+                  <CategoryItem
+                    name={name}
+                    icon={icon}
+                    services={services}
+                    navigation={navigation}
+                    key={index}
+                  />
+                );
+              }
+            })}
         </View>
       </ScrollView>
     </View>
