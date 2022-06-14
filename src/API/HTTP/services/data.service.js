@@ -138,23 +138,19 @@ class DataService {
     }
   };
 
-  getServiceSellerFeedBacks = async id => {
+  getSpecialistsAroundMe = async (latitude, longitude) => {
     try {
-      return http.get(`/user/getServiceSellerFeedBacks/${id}`);
+      return http.get('/user/getSpecialistsAroundMe', {
+        params: {latitude, longitude},
+      });
     } catch (e) {
       console.log(e);
     }
   };
 
-  subscribe = async () => {
+  getServiceSellerFeedBacks = async id => {
     try {
-      let token = await getToken();
-
-      return http.get('/feed/user/getOffers', {
-        headers: {
-          Authorization: token,
-        },
-      });
+      return http.get(`/user/getServiceSellerFeedBacks/${id}`);
     } catch (e) {
       console.log(e);
     }

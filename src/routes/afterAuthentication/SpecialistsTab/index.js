@@ -5,17 +5,25 @@ import {
   StyleSheet,
   Dimensions,
   ScrollView,
-  Text,
+  Image,
+  Platform,
   TouchableOpacity,
+  Alert,
+  Linking,
+  PermissionsAndroid,
+  ToastAndroid,
 } from 'react-native';
 const {io} = require('socket.io-client');
 
 import SpecialistItem from './SpecialistItem';
+import TextBlock from '../../../components/TextBlock';
 
 import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
 import * as Icons from '@fortawesome/free-solid-svg-icons';
+import Geolocation from 'react-native-geolocation-service';
 
 import {colors} from '../../../assets/colors';
+import {images} from '../../../assets/images';
 import DataService from '../../../API/HTTP/services/data.service';
 
 const w = Dimensions.get('window').width;
@@ -32,6 +40,21 @@ export const SpecialistsTab = ({navigation}) => {
   useEffect(() => {
     AppState.addEventListener('change', handleChange);
   }, [handleChange]);
+
+  const getSpecialistsAroundMe = async (latitude, longitude) => {
+    console.log(latitude, 'latitude');
+    console.log(longitude, 'longitude');
+
+    await DataService.getSpecialistsAroundMe(latitude, longitude)
+      .then(res => {
+        if (res.data.success) {
+          console.log('yes');
+        }
+      })
+      .catch(e => {
+        console.log(e);
+      });
+  };
 
   const getUserRequest = async () => {
     await DataService.getUserData()
@@ -126,19 +149,146 @@ export const SpecialistsTab = ({navigation}) => {
     });
   }, [navigation]);
 
+  // ----------------------------------------------- //
+  const [location, setLocation] = useState(null);
+
+  const hasPermissionIOS = async () => {
+    const openSetting = () => {
+      Linking.openSettings().catch(() => {
+        Alert.alert('Unable to open settings');
+      });
+    };
+    const status = await Geolocation.requestAuthorization('whenInUse');
+
+    if (status === 'granted') {
+      return true;
+    }
+
+    if (status === 'denied') {
+      Alert.alert('Location permission denied');
+    }
+
+    if (status === 'disabled') {
+      Alert.alert(
+        'Turn on Location Services to allow "Navkolo" to determine your location.',
+        '',
+        [
+          {text: 'Go to Settings', onPress: openSetting},
+          {text: "Don't Use Location", onPress: () => {}},
+        ],
+      );
+    }
+
+    return false;
+  };
+
+  const hasLocationPermission = async () => {
+    if (Platform.OS === 'ios') {
+      const hasPermission = await hasPermissionIOS();
+      return hasPermission;
+    }
+
+    if (Platform.OS === 'android' && Platform.Version < 23) {
+      return true;
+    }
+
+    const hasPermission = await PermissionsAndroid.check(
+      PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
+    );
+
+    if (hasPermission) {
+      return true;
+    }
+
+    const status = await PermissionsAndroid.request(
+      PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
+    );
+
+    if (status === PermissionsAndroid.RESULTS.GRANTED) {
+      return true;
+    }
+
+    if (status === PermissionsAndroid.RESULTS.DENIED) {
+      ToastAndroid.show(
+        'Location permission denied by user.',
+        ToastAndroid.LONG,
+      );
+    } else if (status === PermissionsAndroid.RESULTS.NEVER_ASK_AGAIN) {
+      ToastAndroid.show(
+        'Location permission revoked by user.',
+        ToastAndroid.LONG,
+      );
+    }
+
+    return false;
+  };
+
+  const getLocation = async () => {
+    const hasPermission = await hasLocationPermission();
+
+    if (!hasPermission) {
+      return;
+    }
+
+    Geolocation.getCurrentPosition(
+      position => {
+        const {latitude, longitude} = position.coords;
+
+        setLocation(position);
+        getSpecialistsAroundMe(latitude, longitude);
+      },
+      error => {
+        Alert.alert(`Code ${error.code}`, error.message);
+        setLocation(null);
+        console.log(error);
+      },
+      {
+        accuracy: {
+          android: 'high',
+          ios: 'best',
+        },
+        enableHighAccuracy: true,
+        timeout: 15000,
+        maximumAge: 10000,
+      },
+    );
+  };
+
+  useEffect(() => {
+    getLocation();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   return (
     <View style={styles.background}>
-      {feed?.length > 0 && (
-        <ScrollView
-          style={styles.container}
-          showsVerticalScrollIndicator={false}>
-          {feed?.map((item, index) => (
-            <SpecialistItem item={item} key={index} />
-          ))}
-          <View style={styles.spacing} />
-        </ScrollView>
+      {location !== null ? (
+        <>
+          {feed?.length > 0 && (
+            <ScrollView
+              style={styles.container}
+              showsVerticalScrollIndicator={false}>
+              {feed?.map((item, index) => (
+                <SpecialistItem item={item} key={index} />
+              ))}
+              <View style={styles.spacing} />
+            </ScrollView>
+          )}
+          {feed.length === 0 && (
+            <>
+              <Image source={images.feedTabImage} style={styles.image} />
+              <TextBlock text={'Схоже, що нікого немає'} size={2} deepBlue />
+              <TextBlock text={'поруч'} size={2} deepBlue />
+            </>
+          )}
+        </>
+      ) : (
+        <>
+          <TextBlock text={'Схоже, що ви'} size={2} deepBlue />
+          <TextBlock text={'вимкнули геолокацію.'} size={2} deepBlue />
+          <Image source={images.offline} style={styles.geolocation} />
+          <TextBlock text={'Увімкніть її  ;)'} size={2} deepBlue />
+        </>
       )}
-      {feed.length === 0 && <Text>No one propositions</Text>}
     </View>
   );
 };
@@ -159,5 +309,23 @@ const styles = StyleSheet.create({
   },
   spacing: {
     height: w * 0.05,
+  },
+  image: {
+    width: w * 0.85,
+    height: h * 0.28,
+    alignSelf: 'center',
+    resizeMode: 'contain',
+    zIndex: 1,
+    marginTop: -h * 0.1,
+    marginBottom: h * 0.05,
+  },
+  geolocation: {
+    width: w * 0.85,
+    height: h * 0.4,
+    alignSelf: 'center',
+    resizeMode: 'contain',
+    zIndex: 1,
+    marginTop: h * 0.04,
+    marginBottom: h * 0.05,
   },
 });

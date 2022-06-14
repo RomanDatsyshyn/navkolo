@@ -1,5 +1,14 @@
 import React, {useEffect, useState} from 'react';
-import {View, StyleSheet, Dimensions, Image, ScrollView} from 'react-native';
+import {
+  View,
+  Alert,
+  StyleSheet,
+  Dimensions,
+  Image,
+  Linking,
+  ScrollView,
+  ActivityIndicator,
+} from 'react-native';
 
 import {clearToken} from '../../../asyncStorage/token';
 import DataService from '../../../API/HTTP/services/data.service';
@@ -40,47 +49,70 @@ export const ProfileTab = ({navigation}) => {
     navigation.navigate('WelcomeScreen');
   };
 
+  const url1 = 'https://t.me/+380968520205';
+
+  const openUrl = async url => {
+    const isSupported = await Linking.canOpenURL(url);
+    if (isSupported) {
+      await Linking.openURL(url);
+    } else {
+      Alert.alert(`Don't know how to open this url: ${url}`);
+    }
+  };
+
   return (
     <View style={styles.background}>
-      <ScrollView showsVerticalScrollIndicator={false}>
-        <View style={styles.container}>
-          <Image
-            source={{
-              uri: `http://localhost:3001/${userPhoto}`,
-            }}
-            style={styles.userPhoto}
-          />
+      {userName === '' ? (
+        <ActivityIndicator size={70} color={colors.black} />
+      ) : (
+        <ScrollView showsVerticalScrollIndicator={false}>
+          <View style={styles.container}>
+            <Image
+              source={{
+                uri: `http://localhost:3001/${userPhoto}`,
+              }}
+              style={styles.userPhoto}
+            />
 
-          <View style={styles.userName}>
-            <TextBlock text={userName || ''} size={1} lightBlue boldest />
+            <View style={styles.userName}>
+              <TextBlock text={userName || ''} size={1} lightBlue boldest />
+            </View>
+
+            <Button
+              label={'Змінити пароль'}
+              onPress={() => navigation.navigate('NewPasswordScreen_Profile')}
+              pink
+            />
+            <View style={styles.spacing} />
+            <Button
+              label={'Історія пошуку'}
+              onPress={() => navigation.navigate('HistoryScreen')}
+              pink
+            />
+
+            <View style={styles.spacing} />
+
+            <Button
+              label={'Open telegram'}
+              onPress={() => openUrl(url1)}
+              pink
+            />
+
+            <View style={styles.moreSpacing} />
+
+            <Button label={'Вийти'} onPress={() => logout()} />
+
+            <BottomLinks
+              firstText={'Маєте запитання?'}
+              secondText={'Напишіть нам!'}
+              route={'ContactUsScreen'}
+              navigation={navigation}
+            />
+            <View style={styles.moreSpacing} />
+            <View style={styles.moreSpacing} />
           </View>
-
-          <Button
-            label={'Змінити пароль'}
-            onPress={() => navigation.navigate('NewPasswordScreen_Profile')}
-            pink
-          />
-          <View style={styles.spacing} />
-          <Button
-            label={'Історія пошуку'}
-            onPress={() => navigation.navigate('HistoryScreen')}
-            pink
-          />
-
-          <View style={styles.moreSpacing} />
-
-          <Button label={'Вийти'} onPress={() => logout()} />
-
-          <BottomLinks
-            firstText={'Маєте запитання?'}
-            secondText={'Напишіть нам!'}
-            route={'ContactUsScreen'}
-            navigation={navigation}
-          />
-          <View style={styles.moreSpacing} />
-          <View style={styles.moreSpacing} />
-        </View>
-      </ScrollView>
+        </ScrollView>
+      )}
     </View>
   );
 };

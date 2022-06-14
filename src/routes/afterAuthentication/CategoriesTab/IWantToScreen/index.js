@@ -1,9 +1,19 @@
 import React, {useState, useEffect} from 'react';
-import {View, StyleSheet, Dimensions} from 'react-native';
+import {
+  View,
+  StyleSheet,
+  Dimensions,
+  Platform,
+  Alert,
+  Linking,
+  PermissionsAndroid,
+  ToastAndroid,
+} from 'react-native';
 import Button from '../../../../components/Button';
 import DatePicker from 'react-native-date-picker';
 
 import DataService from '../../../../API/HTTP/services/data.service';
+import Geolocation from 'react-native-geolocation-service';
 
 const {io} = require('socket.io-client');
 
@@ -15,6 +25,7 @@ export const IWantToScreen = ({route, navigation}) => {
   const [date, setDate] = useState(new Date());
   const [open, setOpen] = useState(false);
   const [isSelected, seIsSelected] = useState(false);
+  const [location, setLocation] = useState(null);
 
   const [userId_, setUserId_] = useState('');
   const {name, id, services} = route.params;
@@ -22,10 +33,14 @@ export const IWantToScreen = ({route, navigation}) => {
   const socket = io('ws://localhost:3001');
 
   const sendMessage = () => {
+    const {latitude, longitude} = location.coords;
+
     socket.emit('sendUserOrderToServiceSellers', {
       userId: userId_,
       serviceId: id,
       date,
+      latitude,
+      longitude,
     });
   };
 
@@ -82,6 +97,111 @@ export const IWantToScreen = ({route, navigation}) => {
       return isTodayOrTomorrow(mm, dd, yyyy) + ' - ' + hour + ' : ' + minute;
     }
   };
+
+  const hasPermissionIOS = async () => {
+    const openSetting = () => {
+      Linking.openSettings().catch(() => {
+        Alert.alert('Unable to open settings');
+      });
+    };
+    const status = await Geolocation.requestAuthorization('whenInUse');
+
+    if (status === 'granted') {
+      return true;
+    }
+
+    if (status === 'denied') {
+      Alert.alert('Location permission denied');
+    }
+
+    if (status === 'disabled') {
+      Alert.alert(
+        'Turn on Location Services to allow "Navkolo" to determine your location.',
+        '',
+        [
+          {text: 'Go to Settings', onPress: openSetting},
+          {text: "Don't Use Location", onPress: () => {}},
+        ],
+      );
+    }
+
+    return false;
+  };
+
+  const hasLocationPermission = async () => {
+    if (Platform.OS === 'ios') {
+      const hasPermission = await hasPermissionIOS();
+      return hasPermission;
+    }
+
+    if (Platform.OS === 'android' && Platform.Version < 23) {
+      return true;
+    }
+
+    const hasPermission = await PermissionsAndroid.check(
+      PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
+    );
+
+    if (hasPermission) {
+      return true;
+    }
+
+    const status = await PermissionsAndroid.request(
+      PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
+    );
+
+    if (status === PermissionsAndroid.RESULTS.GRANTED) {
+      return true;
+    }
+
+    if (status === PermissionsAndroid.RESULTS.DENIED) {
+      ToastAndroid.show(
+        'Location permission denied by user.',
+        ToastAndroid.LONG,
+      );
+    } else if (status === PermissionsAndroid.RESULTS.NEVER_ASK_AGAIN) {
+      ToastAndroid.show(
+        'Location permission revoked by user.',
+        ToastAndroid.LONG,
+      );
+    }
+
+    return false;
+  };
+
+  const getLocation = async () => {
+    const hasPermission = await hasLocationPermission();
+
+    if (!hasPermission) {
+      return;
+    }
+
+    Geolocation.getCurrentPosition(
+      position => {
+        setLocation(position);
+        console.log(position);
+      },
+      error => {
+        Alert.alert(`Code ${error.code}`, error.message);
+        setLocation(null);
+        console.log(error);
+      },
+      {
+        accuracy: {
+          android: 'high',
+          ios: 'best',
+        },
+        enableHighAccuracy: true,
+        timeout: 15000,
+        maximumAge: 10000,
+      },
+    );
+  };
+
+  useEffect(() => {
+    getLocation();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <View style={styles.background}>

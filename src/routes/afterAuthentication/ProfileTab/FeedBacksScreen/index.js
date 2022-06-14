@@ -1,7 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import {
   View,
-  Text,
   TouchableOpacity,
   StyleSheet,
   Dimensions,
@@ -72,7 +71,14 @@ export const FeedBacksScreen = ({route, navigation: {goBack}}) => {
           ))}
 
           {feedBacks.length === 0 && (
-            <Text style={styles.emptyList}>Немає жодного відгуку</Text>
+            <View style={styles.emptyList}>
+              <TextBlock
+                text={'Немає жодного відгуку'}
+                size={2}
+                deepBlue
+                bold
+              />
+            </View>
           )}
 
           <View style={styles.spacing} />
@@ -132,6 +138,8 @@ const styles = StyleSheet.create({
     paddingBottom: w * 0.05,
   },
   emptyList: {
+    width: '100%',
+    alignItems: 'center',
     alignSelf: 'center',
     marginTop: h * 0.3,
   },

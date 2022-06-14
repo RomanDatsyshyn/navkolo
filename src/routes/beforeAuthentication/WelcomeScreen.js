@@ -20,7 +20,7 @@ export const WelcomeScreen = ({navigation}) => {
         <Image source={images.welcomeBoy} style={styles.image} />
 
         <View style={styles.labels}>
-          <TextBlock text={'Забудьте про пошук!'} size={2} deepBlue bolder />
+          <TextBlock text={'Забудьте про пошук!'} size={2} deepBlue />
           <TextBlock text={'Тепер є Ми.'} size={2} deepBlue bolder />
         </View>
       </View>
@@ -66,7 +66,7 @@ const styles = StyleSheet.create({
   },
   labels: {
     position: 'absolute',
-    bottom: w * 0.15,
+    bottom: h > 700 ? w * 0.2 : w * 0.15,
     left: w * 0.075,
   },
   image: {
@@ -76,14 +76,16 @@ const styles = StyleSheet.create({
     marginRight: w * 0.05,
     marginBottom: w * 0.05,
     resizeMode: 'contain',
+    zIndex: 1,
   },
   logo: {
     position: 'absolute',
     width: w * 0.6,
-    height: w * 0.11,
-    top: w * 0.15,
+    height: h > 700 ? w * 0.27 : w * 0.15,
+    top: h > 700 ? h * 0.07 : h * 0.04,
     alignSelf: 'center',
     resizeMode: 'contain',
+    zIndex: 11,
   },
   container: {
     backgroundColor: colors.white,
