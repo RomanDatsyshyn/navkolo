@@ -27,6 +27,7 @@ export const CategoriesTab = ({navigation}) => {
         console.log(e);
       });
   };
+
   useEffect(() => {
     getCategories();
   }, []);

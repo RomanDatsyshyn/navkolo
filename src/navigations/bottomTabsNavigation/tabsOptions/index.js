@@ -50,24 +50,6 @@ export const categoriesTabOptions = {
   },
 };
 
-export const specialistsTabOptions = {
-  tabBarIcon: ({focused}) => (
-    <FontAwesomeIcon
-      icon={Icons.faStreetView}
-      size={w * 0.1}
-      style={{
-        color: focused ? colors.deepBlue : colors.lightGrey,
-      }}
-    />
-  ),
-  headerTitle: 'Спеціалісти',
-  tabBarShowLabel: false,
-  headerTitleAlign: 'center',
-  tabBarIconStyle: {
-    marginTop: w * 0.05,
-  },
-};
-
 export const profileTabOptions = {
   tabBarIcon: ({focused}) => (
     <FontAwesomeIcon
